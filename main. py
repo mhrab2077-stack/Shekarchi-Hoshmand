@@ -1,0 +1,23 @@
+import os
+import json
+import time
+import urllib.request
+import urllib.parse
+
+TOKEN = os.getenv("BOT_TOKEN")
+
+if not TOKEN:
+    raise RuntimeError("توکن ربات تنظیم نشده است.")
+
+BASE_URL = f"https://api.telegram.org/bot{TOKEN}/"
+
+def api(method, data=None):
+    url = BASE_URL + method
+    body = json.dumps(data or {}).encode("utf-8")
+    request = urllib.request.Request(
+        url,
+        data=body,
+        headers={"Content-Type": "application/json"}
+    )
+    with urllib.request.urlopen(request, timeout=40) as response:
+        return
